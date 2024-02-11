@@ -2,6 +2,7 @@ import {Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
 import FinancialRecordInterface from './interfaces/FinancialRecord';
 import AccountModel from './Accounts';
+import FinancialBackgroundModel from './FinancialBackground';
 
 class FinancialRecord extends Model<FinancialRecordInterface> implements FinancialRecordInterface {
     public id!: number;
@@ -17,6 +18,10 @@ class FinancialRecord extends Model<FinancialRecordInterface> implements Financi
         //Relacion entre Account y FinancialRecord, una Account puede tener muchas FinancialRecords y una  FinancialRecords pertenece a una sola Account
         AccountModel.hasMany(FinancialRecord, {foreignKey: 'type_id', });
         FinancialRecord.belongsTo(AccountModel, {foreignKey: 'type_id', as:'Type Request'});
+
+        //Relacion entre FinancialRecord y Request, un FinancialRecord puede tener muchas Request y muchas Request pueden pertenecer a muchas FinancialRecord , esta relacion se hace mediante una tabla intermedia llamada financial_background
+        FinancialRecord.belongsToMany(AccountModel, {through: FinancialBackgroundModel, as:'FinancialRecord_Account',foreignKey: 'tienda_id'});
+        AccountModel.belongsToMany(FinancialRecord, {through: FinancialBackgroundModel, as: 'Account_FinancialRecord',foreignKey: 'region_id'});
     }
 }
 
