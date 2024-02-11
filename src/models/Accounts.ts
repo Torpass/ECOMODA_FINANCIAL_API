@@ -1,17 +1,18 @@
 import {Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
-import RequesTypeInterface from './interfaces/RequestType';
+import AccountsInterface from './interfaces/Accounts';
 
 
-class RequestTypeModel extends Model<RequesTypeInterface> implements RequesTypeInterface {
+class AccountModel extends Model<AccountsInterface> implements AccountsInterface{
     public id!: number;
     public description!: string;
+    public created_at!: Date;
 
     // Metodos personalizados
     
 }
 
-RequestTypeModel.init(
+AccountModel.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -20,13 +21,16 @@ RequestTypeModel.init(
         description: {
             type: DataTypes.STRING,
         },
+        created_at: {
+            type: DataTypes.DATE,
+        }
     },
 
     {
         sequelize,
-        tableName: "REQUESTS_TYPES",
+        tableName: "ACCOUNTS",
         timestamps: false,
     }
 );
 
-export default RequestTypeModel;
+export default AccountModel;
