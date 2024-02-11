@@ -1,9 +1,9 @@
 import {Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
-import RequestInterface from './interfaces/RequestType';
+import RequesTypeInterface from './interfaces/RequestType';
 
 
-class RequestTypeModel extends Model<RequestInterface> implements RequestInterface {
+class RequestTypeModel extends Model<RequesTypeInterface> implements RequesTypeInterface {
     public id!: number;
     public descrption!: string;
 
