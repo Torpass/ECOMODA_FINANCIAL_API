@@ -1,5 +1,6 @@
 export default interface Account{
-    id: number;
+    id?: number;
     description: string;
-    created_at: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

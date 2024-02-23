@@ -6,10 +6,12 @@ import AccountsInterface from './interfaces/Accounts';
 class AccountModel extends Model<AccountsInterface> implements AccountsInterface{
     public id!: number;
     public description!: string;
-    public created_at!: Date;
 
-    // Metodos personalizados
+    //timeStamps
+    public createdAt!: Date;
+    public updatedAt!: Date;
     
+    // Metodos personalizados
 }
 
 AccountModel.init(
@@ -17,11 +19,16 @@ AccountModel.init(
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
+            allowNull: false,
         },
         description: {
             type: DataTypes.STRING,
         },
-        created_at: {
+        createdAt: {
+            type: DataTypes.DATE,
+        },
+        updatedAt: {
             type: DataTypes.DATE,
         }
     },
@@ -29,7 +36,7 @@ AccountModel.init(
     {
         sequelize,
         tableName: "ACCOUNTS",
-        timestamps: false,
+        timestamps: true,
     }
 );
 
