@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `ECOMODA_FINANCE` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `ECOMODA_FINANCE`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: ECOMODA_FINANCE
@@ -25,21 +23,13 @@ DROP TABLE IF EXISTS `ACCOUNTS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ACCOUNTS` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(256) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ACCOUNTS`
---
-
-LOCK TABLES `ACCOUNTS` WRITE;
-/*!40000 ALTER TABLE `ACCOUNTS` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ACCOUNTS` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `DEPARTMENTS`
@@ -55,15 +45,6 @@ CREATE TABLE `DEPARTMENTS` (
   UNIQUE KEY `Description_UNIQUE` (`description`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `DEPARTMENTS`
---
-
-LOCK TABLES `DEPARTMENTS` WRITE;
-/*!40000 ALTER TABLE `DEPARTMENTS` DISABLE KEYS */;
-/*!40000 ALTER TABLE `DEPARTMENTS` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `FINANCIAL_BACKGROUND`
@@ -83,15 +64,6 @@ CREATE TABLE `FINANCIAL_BACKGROUND` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `FINANCIAL_BACKGROUND`
---
-
-LOCK TABLES `FINANCIAL_BACKGROUND` WRITE;
-/*!40000 ALTER TABLE `FINANCIAL_BACKGROUND` DISABLE KEYS */;
-/*!40000 ALTER TABLE `FINANCIAL_BACKGROUND` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `FINANCIAL_RECORD`
 --
 
@@ -108,20 +80,11 @@ CREATE TABLE `FINANCIAL_RECORD` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_FINANTIAL_RECORD_USER_idx` (`user_id`),
-  KEY `fk_FINANTIAL_RECORD_ACCOUNT_idx` (`account_id`),
-  CONSTRAINT `fk_FINANTIAL_RECORD_ACCOUNT` FOREIGN KEY (`account_id`) REFERENCES `ACCOUNTS` (`id`),
+  KEY `fk_FINANCIAL_RECORD_ACCOUNTS_idx` (`account_id`),
+  CONSTRAINT `fk_FINANCIAL_RECORD_ACCOUNTS` FOREIGN KEY (`account_id`) REFERENCES `ACCOUNTS` (`id`),
   CONSTRAINT `fk_FINANTIAL_RECORD_USER` FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `FINANCIAL_RECORD`
---
-
-LOCK TABLES `FINANCIAL_RECORD` WRITE;
-/*!40000 ALTER TABLE `FINANCIAL_RECORD` DISABLE KEYS */;
-/*!40000 ALTER TABLE `FINANCIAL_RECORD` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `REQUESTS`
@@ -147,15 +110,6 @@ CREATE TABLE `REQUESTS` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `REQUESTS`
---
-
-LOCK TABLES `REQUESTS` WRITE;
-/*!40000 ALTER TABLE `REQUESTS` DISABLE KEYS */;
-/*!40000 ALTER TABLE `REQUESTS` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `REQUESTS_TYPES`
 --
 
@@ -170,15 +124,6 @@ CREATE TABLE `REQUESTS_TYPES` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `REQUESTS_TYPES`
---
-
-LOCK TABLES `REQUESTS_TYPES` WRITE;
-/*!40000 ALTER TABLE `REQUESTS_TYPES` DISABLE KEYS */;
-/*!40000 ALTER TABLE `REQUESTS_TYPES` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `ROLES`
 --
 
@@ -191,15 +136,6 @@ CREATE TABLE `ROLES` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ROLES`
---
-
-LOCK TABLES `ROLES` WRITE;
-/*!40000 ALTER TABLE `ROLES` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ROLES` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `USERS`
@@ -220,15 +156,6 @@ CREATE TABLE `USERS` (
   CONSTRAINT `fk_USERS_DEPARTMENT` FOREIGN KEY (`id`) REFERENCES `DEPARTMENTS` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `USERS`
---
-
-LOCK TABLES `USERS` WRITE;
-/*!40000 ALTER TABLE `USERS` DISABLE KEYS */;
-/*!40000 ALTER TABLE `USERS` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -239,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-29  0:46:50
+-- Dump completed on 2024-02-22 22:38:54
