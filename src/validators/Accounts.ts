@@ -13,4 +13,14 @@ const ValidatorRegisterAccount = [
     }
 ];
 
+export const getAccountById = [
+    check('id')
+    .exists()
+    .notEmpty()
+    .isInt(),
+    (req:Request, res:Response, next:NextFunction) => {
+        return validationResults(req, res, next)
+    }
+];
+
 export default ValidatorRegisterAccount;
