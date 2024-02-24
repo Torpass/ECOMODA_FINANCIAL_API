@@ -9,9 +9,10 @@ class FinancialRecord extends Model<FinancialRecordInterface> implements Financi
     public type!: string;
     public description!: string;
     public amount!: number;
-    public user_id!: number;
+    // public user_id!: number;
     public account_id!: number;
     public created_at!: Date;
+    public updated_at!: Date;
 
     // Metodos personalizados
     static initializeAssociations(){
@@ -22,6 +23,16 @@ class FinancialRecord extends Model<FinancialRecordInterface> implements Financi
         //Relacion entre FinancialRecord y Request, un FinancialRecord puede tener muchas Request y muchas Request pueden pertenecer a muchas FinancialRecord , esta relacion se hace mediante una tabla intermedia llamada financial_background
         FinancialRecord.belongsToMany(AccountModel, {through: FinancialBackgroundModel, as:'FinancialRecord_Account',foreignKey: 'tienda_id'});
         AccountModel.belongsToMany(FinancialRecord, {through: FinancialBackgroundModel, as: 'Account_FinancialRecord',foreignKey: 'region_id'});
+    }
+
+    static async getAllFinancialRecords(){
+        try{
+            const financialRecords = await FinancialRecord.findAll({attributes: ['id', 'description', 'amount', 'account_id', 'created_at', 'updated_at']});
+            return financialRecords;
+        }catch(error:any){
+            console.log(error);
+            return null;
+        }
     }
 }
 
@@ -40,13 +51,16 @@ FinancialRecord.init(
         amount: {
             type: DataTypes.INTEGER,
         },
-        user_id: {
-            type: DataTypes.INTEGER,
-        },
+        // user_id: {
+        //     type: DataTypes.INTEGER,
+        // },
         account_id:{
             type: DataTypes.INTEGER,
         },
         created_at:{
+            type: DataTypes.DATE,
+        },
+        updated_at:{
             type: DataTypes.DATE,
         },
 
@@ -55,7 +69,7 @@ FinancialRecord.init(
     {
         sequelize,
         tableName: "FINANCIAL_RECORD",
-        timestamps: false,
+        timestamps: true,
     }
 );
 
