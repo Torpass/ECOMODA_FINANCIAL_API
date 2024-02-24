@@ -1,5 +1,6 @@
 import express from 'express';
 import {createAccount, getAllAcounts, updateAccount, getAcountById} from '../controllers/Accounsts';
+import {getAccountWithAllRecords} from '../controllers/Accounsts';
 import accountValidator from '../validators/Accounts';
 import {getAccountById} from '../validators/Accounts';
 const router = express.Router();
@@ -7,6 +8,10 @@ const router = express.Router();
 //get all accounts from the Account table
 router.get("/getAllAccounts",
             getAllAcounts);
+
+//get all accounts from the Account table
+router.get("/getAccountsWithAllRecords/:accountId",
+            getAccountWithAllRecords);
 
 //get an a specific account from the Account table
 router.get("/getAccountById/:id",
@@ -22,7 +27,7 @@ router.post("/createAccount",
 router.delete("/deleteAccount/:id");
 
 //update an account in the Account table
-router.put("/updateAccount/:id",
+router.put("/updateAccount/:accountId",
             accountValidator,
             updateAccount);
 

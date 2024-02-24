@@ -7,12 +7,13 @@ export async function getAllFinancialRecords(_req:Request, res:Response) {
     try{
         const financialRecords = await FianacialRecordModel.getAllFinancialRecords();
 
-        return res.status(200).send({accounts})
+        return res.status(200).send({financialRecords})
     }catch(error:any){
         console.log(error);
         return res.status(500).send('ERROR_GETING_ACCOUNTS')
     }
 }
+
 
 export async function createFinancialRecord(req:Request, res:Response) {
     try{

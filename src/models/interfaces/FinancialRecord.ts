@@ -5,6 +5,6 @@ export default interface FinancialRecord{
     amount: number;
     // user_id: number;
     account_id: number;
-    created_at?: Date;
-    updated_at?: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
