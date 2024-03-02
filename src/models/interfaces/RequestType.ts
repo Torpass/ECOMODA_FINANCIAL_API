@@ -1,4 +1,4 @@
 export default interface RequestType {
-    id:number;
+    id?:number;
     description:string;
 }
