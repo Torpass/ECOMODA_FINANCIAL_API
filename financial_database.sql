@@ -59,7 +59,7 @@ CREATE TABLE `FINANCIAL_BACKGROUND` (
   PRIMARY KEY (`request_id`,`finanacial_record_id`),
   KEY `fk_FINANCIAL_BACKGROUND_RECORD_idx` (`finanacial_record_id`),
   CONSTRAINT `fk_FINANCIAL_BACKGROUND_RECORD` FOREIGN KEY (`finanacial_record_id`) REFERENCES `FINANCIAL_RECORD` (`id`),
-  CONSTRAINT `fk_FINANCIAL_BACKGROUND_REQUEST` FOREIGN KEY (`request_id`) REFERENCES `REQUESTS` (`id`)
+  CONSTRAINT `fk_FINANCIAL_BACKGROUND_REQUESTS` FOREIGN KEY (`request_id`) REFERENCES `REQUESTS` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -71,19 +71,17 @@ DROP TABLE IF EXISTS `FINANCIAL_RECORD`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `FINANCIAL_RECORD` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `type` enum('DEBE','HABER') NOT NULL COMMENT '"debe" and "haber" represents incoms and outcomes in that record',
   `description` varchar(45) NOT NULL,
   `amount` float NOT NULL,
-  `user_id` int NOT NULL,
   `account_id` int NOT NULL,
-  `created_at` datetime NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_FINANTIAL_RECORD_USER_idx` (`user_id`),
   KEY `fk_FINANCIAL_RECORD_ACCOUNTS_idx` (`account_id`),
-  CONSTRAINT `fk_FINANCIAL_RECORD_ACCOUNTS` FOREIGN KEY (`account_id`) REFERENCES `ACCOUNTS` (`id`),
-  CONSTRAINT `fk_FINANTIAL_RECORD_USER` FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_FINANCIAL_RECORD_ACCOUNT` FOREIGN KEY (`account_id`) REFERENCES `ACCOUNTS` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,13 +92,14 @@ DROP TABLE IF EXISTS `REQUESTS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `REQUESTS` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `amount` float NOT NULL,
   `description` varchar(45) NOT NULL,
   `user_id` int NOT NULL,
   `type_id` int NOT NULL,
-  `date` datetime NOT NULL,
-  `status` varchar(45) NOT NULL COMMENT 'status:{\n	0:"en espera",\n	1: "Aceptada",\n	2:"rechazada"\n}',
+  `status` varchar(45) NOT NULL COMMENT 'status:{\\n	0:"en espera",\\n	1: "Aceptada",\\n	2:"rechazada"\\n}',
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_REQUESTS_USER_idx` (`user_id`),
   KEY `fk_REQUESTS_TYPE_REQUEST_idx` (`type_id`),
@@ -117,7 +116,7 @@ DROP TABLE IF EXISTS `REQUESTS_TYPES`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `REQUESTS_TYPES` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `description` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -166,4 +165,4 @@ CREATE TABLE `USERS` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-22 22:38:54
+-- Dump completed on 2024-03-01 21:05:08
