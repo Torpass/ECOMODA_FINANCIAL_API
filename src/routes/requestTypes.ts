@@ -21,7 +21,7 @@ router.post("/createRequestType",
 router.delete("/deleteRequestType/:id");
 
 //update an RequestType in the Account table
-router.put("/updateRequestType/:Id",
+router.put("/updateRequestType/:id",
             RequestTypeValidator,
             updateRequestType);
 

@@ -4,7 +4,7 @@ import RequesTypeInterface from './interfaces/RequestType';
 
 
 class RequestTypeModel extends Model<RequesTypeInterface> implements RequesTypeInterface {
-    public id!: number;
+    public id?: number;
     public description!: string;
 
     // Metodos personalizados
