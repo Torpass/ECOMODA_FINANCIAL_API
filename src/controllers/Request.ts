@@ -5,8 +5,7 @@ import { matchedData } from 'express-validator';
 
 export async function getAllRequets(_req:Request, res:Response) {
     try{
-        const request = await RequestModel.findAll({attributes: ['id','amount','description','user_id','type_id','date','status']});
-
+        const request = await RequestModel.getAllRequest()        
         return res.status(200).send({request})
     }catch(error:any){
         console.log(error);
@@ -16,9 +15,9 @@ export async function getAllRequets(_req:Request, res:Response) {
 
 export async function createRequest(req:Request, res:Response) {
     try{
-        const {amount,description} = matchedData(req);
-
-        const request = await RequestModel.create({amount,description});
+        const {amount,description,type_id} = matchedData(req);
+        const status = "0";
+        const request = await RequestModel.create({amount,description,type_id,status});
 
         return res.status(200).send({request})
     }catch(error:any){

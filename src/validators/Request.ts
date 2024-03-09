@@ -14,6 +14,11 @@ const ValidatorRegisterRequest = [
     .notEmpty()
     .isLength({ min: 3, max:256 })
     .isString(),
+    
+    check('type_id')
+    .exists()
+    .notEmpty()
+    .isInt(),
     (req:Request, res:Response, next:NextFunction) => {
         return validationResults(req, res, next)
     }

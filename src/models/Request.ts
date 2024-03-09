@@ -8,7 +8,7 @@ class RequestModel extends Model<RequestInterface> implements RequestInterface {
     public id!: number;
     public amount!: number;
     public description!: string;
-    public user_id!: number;
+    //public user_id!: number;
     public type_id!: number;
     public date!: Date;
     public status!: string;
@@ -64,6 +64,7 @@ class RequestModel extends Model<RequestInterface> implements RequestInterface {
 RequestModel.init(
     {
         id: {
+            autoIncrement: true,
             type: DataTypes.INTEGER,
             primaryKey: true,
         },
@@ -73,9 +74,9 @@ RequestModel.init(
         description:{
             type: DataTypes.STRING,
         },
-        user_id: {
-            type: DataTypes.INTEGER,
-        },
+       // user_id: {
+          //  type: DataTypes.INTEGER,
+      //  },
         type_id:{
             type: DataTypes.INTEGER,
         },
@@ -90,7 +91,7 @@ RequestModel.init(
     {
         sequelize,
         tableName: "REQUESTS",
-        timestamps: false,
+        timestamps: true,
     }
 );
 
