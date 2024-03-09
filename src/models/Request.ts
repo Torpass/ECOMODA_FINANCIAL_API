@@ -53,7 +53,9 @@ class RequestModel extends Model<RequestInterface> implements RequestInterface {
                     as: 'RequestSolicitude'
                 }
             ] 
+        
         })
+        return requestType;
         
     }
 }
