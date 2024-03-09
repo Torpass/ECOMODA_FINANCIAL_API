@@ -5,11 +5,14 @@ import { matchedData } from 'express-validator';
 
 export async function getAllRequets(_req:Request, res:Response) {
     try{
-        const request = await RequestModel.getAllRequest()        
+        const request = await RequestModel.findAll()
+      //  const request = await RequestModel.getAllRequest() */       
         return res.status(200).send({request})
+        console.log("hola")
     }catch(error:any){
         console.log(error);
         return res.status(500).send('ERROR_GETING_REQUEST')
+        
     }
 }
 
@@ -33,9 +36,9 @@ export async function updateRequest(req:Request, res:Response){
         const requestExists = await RequestModel.findByPk(id);
         if (!requestExists) return res.status(404).send('REQUEST_NOT_FOUND');
 
-        const {amount,description} = matchedData(req);
+        const {amount,description,type_id,status} = matchedData(req);
 
-        const request = await RequestModel.update({amount,description}, {where: {id}});
+        const request = await RequestModel.update({amount,description,type_id,status}, {where: {id}});
         if(!request) return res.status(500).send('ERROR_UPDATING_REQUEST');
 
         return res.status(200).send({
