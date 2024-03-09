@@ -4,7 +4,7 @@ import RequestTypeValidator, { getRequestTypetByIdValidator } from '../validator
 const router = express.Router();
 
 //get all RequestTypes from the Account table
-router.get("/",
+router.get("/getAllRequestType",
             getAllRequestType);
 
 //get an a specific RequestType from the Account table
