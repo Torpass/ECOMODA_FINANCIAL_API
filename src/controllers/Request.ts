@@ -19,8 +19,9 @@ export async function getAllRequets(_req:Request, res:Response) {
 export async function createRequest(req:Request, res:Response) {
     try{
         const {amount,description,type_id} = matchedData(req);
-        const status = "0";
-        const request = await RequestModel.create({amount,description,type_id,status});
+        const status = "pending";
+        
+        const request = await RequestModel.create({amount,description,type_id, status});
 
         return res.status(200).send({request})
     }catch(error:any){

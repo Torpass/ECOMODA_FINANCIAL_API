@@ -17,8 +17,13 @@ export async function getAllRequestType(_req:Request, res:Response) {
 export async function createRequestType(req:Request, res:Response){    
     try{
         const {description} = matchedData(req);
+        const initialStatus = 'active';
 
-        const requestType = await RequestTypeModel.create({description});
+        const requestType = await RequestTypeModel.create({
+            description: description, 
+            status: initialStatus
+        });
+        
         return res.status(200).send({requestType})
     }catch(error:any){
         console.log(error);
