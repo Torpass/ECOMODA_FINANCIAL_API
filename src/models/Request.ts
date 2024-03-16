@@ -30,7 +30,7 @@ RequestModel.init(
             type: DataTypes.INTEGER,
         },
         status:{
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM('pending', 'approved', 'rejected'),
         }
     },
 
