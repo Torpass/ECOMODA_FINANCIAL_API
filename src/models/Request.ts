@@ -31,6 +31,7 @@ RequestModel.init(
         },
         status:{
             type: DataTypes.ENUM('pending', 'approved', 'rejected'),
+            defaultValue: 'pending',
         }
     },
 

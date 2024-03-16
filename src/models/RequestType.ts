@@ -23,6 +23,7 @@ RequestTypeModel.init(
         },
         status:{
             type: DataTypes.ENUM('inactive', 'active'),
+            defaultValue: 'active',
         }
     },
 

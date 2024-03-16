@@ -18,8 +18,12 @@ export async function getAllAcounts(_req:Request, res:Response) {
 export async function createAccount(req:Request, res:Response){    
     try{
         const {description} = matchedData(req);
+        const initialStatus = 'active';
 
-        const account = await AccountModel.create({description});
+        const account = await AccountModel.create({
+            description:description,
+            status: initialStatus
+        });
         return res.status(200).send({account})
     }catch(error:any){
         console.log(error);

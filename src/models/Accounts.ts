@@ -5,6 +5,7 @@ import AccountsInterface from './interfaces/Accounts';
 class AccountModel extends Model<AccountsInterface> implements AccountsInterface{
     public id!: number;
     public description!: string;
+    public status!: string;
 
     //timeStamps
     public createdAt!: Date;
@@ -30,7 +31,11 @@ AccountModel.init(
         },
         updatedAt: {
             type: DataTypes.DATE,
-        }
+        },
+        status: {
+            type: DataTypes.ENUM('active', 'inactive'),
+            defaultValue: 'active',
+        },
     },
 
     {
