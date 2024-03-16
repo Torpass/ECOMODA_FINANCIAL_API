@@ -33,8 +33,7 @@ AccountModel.init(
             type: DataTypes.DATE,
         },
         status: {
-            type: DataTypes.ENUM('active', 'inactive'),
-            defaultValue: 'active',
+            type: DataTypes.ENUM('inactivo', 'activo'),
         },
     },
 

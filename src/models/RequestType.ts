@@ -22,8 +22,8 @@ RequestTypeModel.init(
             type: DataTypes.STRING,
         },
         status:{
-            type: DataTypes.ENUM('inactive', 'active'),
-            defaultValue: 'active',
+            type: DataTypes.ENUM('activo', 'inactivo'),
+            defaultValue: 'activo',
         }
     },
 

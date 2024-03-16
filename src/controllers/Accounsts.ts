@@ -5,7 +5,7 @@ import { matchedData } from "express-validator"
 
 export async function getAllAcounts(_req:Request, res:Response) {
     try{
-        const accounts = await AccountModel.findAll({attributes: ['id', 'description']});
+        const accounts = await AccountModel.findAll({attributes: ["id", "description", "status"]});
 
         return res.status(200).send({accounts})
     }catch(error:any){
@@ -14,11 +14,10 @@ export async function getAllAcounts(_req:Request, res:Response) {
     }
 }
 
-
 export async function createAccount(req:Request, res:Response){    
     try{
         const {description} = matchedData(req);
-        const initialStatus = 'active';
+        const initialStatus = 'activo';
 
         const account = await AccountModel.create({
             description:description,
