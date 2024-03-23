@@ -1,6 +1,7 @@
 import {Request, Response} from 'express'
 import RequestModel from '../models/Request';
 import { matchedData } from 'express-validator';
+import RequestType from '../models/RequestType';
 
 
 export async function getAllRequets(_req:Request, res:Response) {
@@ -39,6 +40,9 @@ export async function updateRequest(req:Request, res:Response){
 
         const {amount,description,type_id} = matchedData(req);
 
+        const request_type = await RequestType.findByPk(type_id);
+        if(!request_type) return res.status(404).send('INVALID_REQUEST_TYPE')
+
         const request = await RequestModel.update({amount,description,type_id}, {where: {id}});
         if(!request) return res.status(500).send('ERROR_UPDATING_REQUEST');
 
@@ -46,7 +50,8 @@ export async function updateRequest(req:Request, res:Response){
             request: {
                 id,
                 amount,
-                description
+                description,
+                type_id
             }
         })
     }catch(error:any){
