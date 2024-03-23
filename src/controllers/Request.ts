@@ -19,7 +19,7 @@ export async function getAllRequets(_req:Request, res:Response) {
 export async function createRequest(req:Request, res:Response) {
     try{
         const {amount,description,type_id} = matchedData(req);
-        const status = "pending";
+        const status = "En espera";
         
         const request = await RequestModel.create({amount,description,type_id, status});
 
@@ -37,9 +37,9 @@ export async function updateRequest(req:Request, res:Response){
         const requestExists = await RequestModel.findByPk(id);
         if (!requestExists) return res.status(404).send('REQUEST_NOT_FOUND');
 
-        const {amount,description,type_id,status} = matchedData(req);
+        const {amount,description,type_id} = matchedData(req);
 
-        const request = await RequestModel.update({amount,description,type_id,status}, {where: {id}});
+        const request = await RequestModel.update({amount,description,type_id}, {where: {id}});
         if(!request) return res.status(500).send('ERROR_UPDATING_REQUEST');
 
         return res.status(200).send({
@@ -53,7 +53,6 @@ export async function updateRequest(req:Request, res:Response){
         console.log(error);
         return res.status(500).send('ERROR_UPDATING_REQUEST')
     }
-
 }
 
 export async function getRequestById(req:Request, res:Response) {
@@ -64,12 +63,59 @@ export async function getRequestById(req:Request, res:Response) {
 
         const request = await RequestModel.findOne({
             where: {id},
-            attributes: ['id','amount','description','user_id','type_id','date','status'],
+            attributes: ['id','amount','description','type_id','createdAt','status'],
         });
 
         return res.status(200).send({request})
     }catch(error:any){
         console.log(error);
         return res.status(500).send('ERROR_GETING_REQUEST')
+    }
+}
+
+export async function declineRequest(req:Request, res:Response){    
+    try{
+        const {id} = req.params;
+        const requestExists = await RequestModel.findByPk(id);
+        if (!requestExists) return res.status(404).send('REQUEST_NOT_FOUND');
+
+
+        const request = await RequestModel.update({status: "Rechazada"}, {where: {id}});
+        if(!request) return res.status(500).send('ERROR_DECLINING_REQUEST');
+
+
+        return res.status(200).send({
+            request: {
+                id,
+                status: "Rechazada"
+            }
+        })
+    }catch(error:any){
+        console.log(error);
+        return res.status(500).send('ERROR_DECLINING_REQUEST')
+    }
+}
+
+
+export async function acceptRequest(req:Request, res:Response){    
+    try{
+        const {id} = req.params;
+        const requestExists = await RequestModel.findByPk(id);
+        if (!requestExists) return res.status(404).send('REQUEST_NOT_FOUND');
+
+
+        const request = await RequestModel.update({status: "Aceptada"}, {where: {id}});
+        if(!request) return res.status(500).send('ERROR_ACCEPTING_REQUEST');
+
+        
+        return res.status(200).send({
+            request: {
+                id,
+                status: "Aceptada"
+            }
+        })
+    }catch(error:any){
+        console.log(error);
+        return res.status(500).send('ERROR_DECLINING_REQUEST')
     }
 }

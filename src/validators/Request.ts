@@ -16,7 +16,7 @@ const ValidatorRegisterRequest = [
     check('description',"Este campo debe contener minimo 3 caracteres o maximo 256")
     .isLength({ min: 3, max:256 })
     .isString(),
-    
+
     check('type_id',"Este campo es requerido o esta vacio")
     .exists()
     .notEmpty(),

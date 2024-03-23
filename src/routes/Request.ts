@@ -1,5 +1,5 @@
 import express from 'express';
-import {createRequest, getAllRequets, updateRequest, getRequestById} from '../controllers/Request';
+import {createRequest, getAllRequets, updateRequest, getRequestById, declineRequest, acceptRequest} from '../controllers/Request';
 import requestValidator from '../validators/Request';
 import {getRequestsById} from '../validators/Request';
 const router = express.Router();
@@ -18,8 +18,16 @@ router.post("/createRequest",
             requestValidator,
             createRequest);
 
-//delete an request from the Request table
-router.delete("/deleteRequest/:id");
+//this will decline an request from the Request table (from status "en espara" to "rechazada")
+router.put("/declineRequest/:id",
+            declineRequest
+);
+
+//this will accept an request from the Request table (from status "en espara" to "Aceptada")
+router.put("/acceptRequest/:id",
+            acceptRequest
+);
+
 
 //update an request in the Request table
 router.put("/updateRequest/:id",
