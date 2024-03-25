@@ -4,7 +4,7 @@ import { matchedData } from "express-validator"
 
 export async function getAllRequestType(_req:Request, res:Response) {
     try{
-        const requestsTypes = await RequestTypeModel.findAll({attributes: ['id', 'description']});
+        const requestsTypes = await RequestTypeModel.findAll({attributes: ['id', 'description', "status"]});
 
         return res.status(200).send({requestsTypes})
     }catch(error:any){
@@ -65,7 +65,7 @@ export async function getRequestTypeById(req:Request, res:Response) {
 
         const request_Type = await RequestTypeModel.findOne({
             where: {id},
-            attributes: ['id', 'description'],
+            attributes: ['id', 'description', "status"],
         });
 
         return res.status(200).send({request_Type})
