@@ -38,4 +38,15 @@ export const getRequestsById = [
     }
 ];
 
+export const getSelectedRequestsValidator = [
+    check('statusType',"Este campo es requerido o esta vacio")
+    .exists()
+    .notEmpty(),
+    check('statusType',"Type debe ser Aceptada o Rechazada o En espera")
+    .isIn(["Aceptada", "Rechazada", "Espera"]),
+    (req:Request, res:Response, next:NextFunction) => {
+        return validationResults(req, res, next)
+    }
+];
+
 export default ValidatorRegisterRequest;

@@ -17,6 +17,27 @@ export async function getAllRequets(_req:Request, res:Response) {
     }
 }
 
+export async function getSelectedRequest(req:Request, res:Response) {
+    try{
+
+        let {statusType} = matchedData(req); 
+
+        statusType === "Espera" ? statusType = "En espera" : statusType; 
+
+        const selectedRequests = await RequestModel.findAll({
+            where: {
+                status: statusType
+            }
+        })
+
+        return res.status(200).send({selectedRequests})
+    }catch(error:any){
+        console.log(error);
+        return res.status(500).send('ERROR_GETING_REQUEST')
+        
+    }
+}
+
 export async function createRequest(req:Request, res:Response) {
     try{
         const {amount,description,type_id} = matchedData(req);

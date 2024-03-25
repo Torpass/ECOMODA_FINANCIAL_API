@@ -1,6 +1,6 @@
 import express from 'express';
-import {createRequest, getAllRequets, updateRequest, getRequestById, declineRequest, acceptRequest} from '../controllers/Request';
-import requestValidator from '../validators/Request';
+import {createRequest, getAllRequets, updateRequest, getRequestById, declineRequest, acceptRequest, getSelectedRequest} from '../controllers/Request';
+import requestValidator, { getSelectedRequestsValidator } from '../validators/Request';
 import {getRequestsById} from '../validators/Request';
 const router = express.Router();
 
@@ -8,6 +8,13 @@ const router = express.Router();
 router.get("/getAllRequest",
             getAllRequets);
 
+
+//this can be used to get specific request from the Request table, the statusType can be "Aceptada", "Rechazada" or "En espera"
+router.get("/getRequests/:statusType",
+            getSelectedRequestsValidator,
+            getSelectedRequest);
+
+            
 //get an a specific request from the Request table
 router.get("/getRequestById/:id",
             getRequestsById,
