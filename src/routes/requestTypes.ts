@@ -1,5 +1,5 @@
 import express from 'express';
-import {getAllRequestType,getRequestTypeById,createRequestType,updateRequestType} from '../controllers/RequestType';
+import {getAllRequestType,getRequestTypeById,createRequestType,updateRequestType, deleteRequestType} from '../controllers/RequestType';
 import RequestTypeValidator, { getRequestTypetByIdValidator } from '../validators/RequestType';
 const router = express.Router();
 
@@ -18,7 +18,8 @@ router.post("/createRequestType",
             createRequestType);
 
 //delete an RequestType from the Account table
-router.delete("/deleteRequestType/:id");
+router.delete("/deleteRequestType/:id",
+                deleteRequestType);
 
 //update an RequestType in the Account table
 router.put("/updateRequestType/:id",

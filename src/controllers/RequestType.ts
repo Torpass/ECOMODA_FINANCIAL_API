@@ -17,7 +17,7 @@ export async function getAllRequestType(_req:Request, res:Response) {
 export async function createRequestType(req:Request, res:Response){    
     try{
         const {description} = matchedData(req);
-        const initialStatus = 'active';
+        const initialStatus = 'Activo'; 
 
         const requestType = await RequestTypeModel.create({
             description: description, 
@@ -73,4 +73,28 @@ export async function getRequestTypeById(req:Request, res:Response) {
         console.log(error);
         return res.status(500).send('ERROR_GETING_REQUEST_TYPE')
     }
+}
+
+export async function deleteRequestType(req:Request, res:Response){    
+    try{
+        const {id} = req.params;
+        const requestTypeExists = await RequestTypeModel.findByPk(id);
+        if (!requestTypeExists) return res.status(404).send('ACCOUNT_NOT_FOUND');
+
+        const status = 'Inactivo';
+
+        const requestType = await RequestTypeModel.update({status}, {where: {id}});
+        if(!requestType) return res.status(500).send('ERROR_DELETING_REQUEST_TYPE');
+
+        return res.status(200).send({
+            request_Type: {
+                id,
+                status
+            }
+        })
+    }catch(error:any){
+        console.log(error);
+        return res.status(500).send('ERROR_DELETING_REQUEST_TYPE')
+    }
+
 }
