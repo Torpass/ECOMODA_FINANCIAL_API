@@ -25,4 +25,15 @@ export const getRequestTypetByIdValidator = [
     }
 ];
 
+
+export const getSelectedRequestsTypeValidator = [
+    check('statusType',"Este campo es requerido o esta vacio")
+    .exists()
+    .notEmpty(),
+    check('statusType',"Type debe ser Activo o Inactivo")
+    .isIn(["Activo", "Inactivo"]),
+    (req:Request, res:Response, next:NextFunction) => {
+        return validationResults(req, res, next)
+    }
+];
 export default ValidatorRegisterRequestType;

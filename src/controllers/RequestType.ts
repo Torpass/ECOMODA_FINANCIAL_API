@@ -13,6 +13,26 @@ export async function getAllRequestType(_req:Request, res:Response) {
     }
 }
 
+export async function getSelectedRequestType(req:Request, res:Response) {
+    try{
+
+        let {statusType} = matchedData(req); 
+
+        const selectedRequests = await RequestTypeModel.findAll({
+            where: {
+                status: statusType
+            }
+        })
+
+        return res.status(200).send({selectedRequests})
+    }catch(error:any){
+        console.log(error);
+        return res.status(500).send('ERROR_GETING_REQUEST')
+        
+    }
+}
+
+
 
 export async function createRequestType(req:Request, res:Response){    
     try{

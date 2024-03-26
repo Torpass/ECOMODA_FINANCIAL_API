@@ -1,11 +1,18 @@
 import express from 'express';
-import {getAllRequestType,getRequestTypeById,createRequestType,updateRequestType, deleteRequestType} from '../controllers/RequestType';
-import RequestTypeValidator, { getRequestTypetByIdValidator } from '../validators/RequestType';
+import {getAllRequestType,getRequestTypeById,createRequestType,updateRequestType, deleteRequestType, getSelectedRequestType} from '../controllers/RequestType';
+import RequestTypeValidator, { getRequestTypetByIdValidator, getSelectedRequestsTypeValidator } from '../validators/RequestType';
 const router = express.Router();
 
 //get all RequestTypes from the Account table
 router.get("/getAllRequestType",
             getAllRequestType);
+
+
+//this can be used to get specific request_type from the Request table, the statusType can be "Activo" or "Inactivo"
+router.get("/getRequestsTypes/:statusType",
+            getSelectedRequestsTypeValidator,
+            getSelectedRequestType);
+
 
 //get an a specific RequestType from the Account table
 router.get("/getRequestTypeById/:id",
