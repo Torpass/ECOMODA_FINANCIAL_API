@@ -24,7 +24,8 @@ DROP TABLE IF EXISTS `ACCOUNTS`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ACCOUNTS` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `description` varchar(256) DEFAULT NULL,
+  `description` varchar(256) NOT NULL,
+  `status` enum('inactivo','activo') DEFAULT NULL COMMENT 'status(0=inactivo, 1=Activo)',
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -95,16 +96,13 @@ CREATE TABLE `REQUESTS` (
   `id` int NOT NULL AUTO_INCREMENT,
   `amount` float NOT NULL,
   `description` varchar(45) NOT NULL,
-  `user_id` int NOT NULL,
   `type_id` int NOT NULL,
-  `status` varchar(45) NOT NULL COMMENT 'status:{\\n	0:"en espera",\\n	1: "Aceptada",\\n	2:"rechazada"\\n}',
+  `status` enum('En espera','Aceptada','Rechazada') NOT NULL COMMENT 'status:{\\\\n	0:"en espera",\\\\n	1: "Aceptada",\\\\n	2:"rechazada"\\\\n}',
   `createdAt` datetime NOT NULL,
-  `updatedAt` datetime DEFAULT NULL,
+  `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_REQUESTS_USER_idx` (`user_id`),
   KEY `fk_REQUESTS_TYPE_REQUEST_idx` (`type_id`),
-  CONSTRAINT `fk_REQUESTS_TYPE_REQUEST` FOREIGN KEY (`type_id`) REFERENCES `REQUESTS_TYPES` (`id`),
-  CONSTRAINT `fk_REQUESTS_USER` FOREIGN KEY (`user_id`) REFERENCES `USERS` (`id`)
+  CONSTRAINT `fk_REQUESTS_TYPE_REQUEST` FOREIGN KEY (`type_id`) REFERENCES `REQUESTS_TYPES` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -117,9 +115,10 @@ DROP TABLE IF EXISTS `REQUESTS_TYPES`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `REQUESTS_TYPES` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `description` varchar(256) DEFAULT NULL,
+  `description` varchar(256) NOT NULL,
+  `status` enum('Inactivo','Activo') DEFAULT NULL COMMENT 'status(0=inactivo, 1=Activo)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,4 +164,4 @@ CREATE TABLE `USERS` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-01 21:05:08
+-- Dump completed on 2024-03-16 13:14:19

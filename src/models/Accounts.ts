@@ -2,16 +2,17 @@ import {Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
 import AccountsInterface from './interfaces/Accounts';
 
-
 class AccountModel extends Model<AccountsInterface> implements AccountsInterface{
     public id!: number;
     public description!: string;
+    public status!: string;
 
     //timeStamps
     public createdAt!: Date;
     public updatedAt!: Date;
     
     // Metodos personalizados
+   
 }
 
 AccountModel.init(
@@ -30,7 +31,10 @@ AccountModel.init(
         },
         updatedAt: {
             type: DataTypes.DATE,
-        }
+        },
+        status: {
+            type: DataTypes.ENUM('inactivo', 'activo'),
+        },
     },
 
     {

@@ -1,9 +1,10 @@
 export default interface FinancialRecord{
-    id: number;
+    id?: number;
     type: string;
     description: string;
     amount: number;
-    user_id: number;
+    // user_id: number;
     account_id: number;
-    created_at: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

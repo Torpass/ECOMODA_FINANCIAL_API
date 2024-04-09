@@ -9,7 +9,7 @@ const removeExtension = (fileName: String) => {
 
 fs.readdirSync(PATH_ROUTES).filter((file) => {
   const name = removeExtension(file);
-  if (name !== 'index' && file !== '__test__') {
+  if (name !== 'index' && file !== '__test__' && file !== 'docs') {
     console.log(`ruta actual: ${name}`);
     router.use(`/${name}`, require(`./${file}`));
   }

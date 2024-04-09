@@ -4,9 +4,9 @@ import RequesTypeInterface from './interfaces/RequestType';
 
 
 class RequestTypeModel extends Model<RequesTypeInterface> implements RequesTypeInterface {
-    public id!: number;
+    public id?: number;
     public description!: string;
-
+    public status!: string;
     // Metodos personalizados
     
 }
@@ -16,10 +16,15 @@ RequestTypeModel.init(
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true
         },
         description: {
             type: DataTypes.STRING,
         },
+        status:{
+            type: DataTypes.ENUM('activo', 'inactivo'),
+            defaultValue: 'activo',
+        }
     },
 
     {
