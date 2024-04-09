@@ -41,3 +41,107 @@ router.put("/updateAccount/:accountId",
             updateAccount);
 
 module.exports = router;
+
+
+/**
+ * @swagger
+ * tags:
+ *   - name: accounts
+ *     description: Everything about accounts
+ * 
+ * /getAllAccounts:
+ *   get:
+ *     tags: [accounts]
+ *     summary: Retrieve a list of all accounts
+ *     responses:
+ *       200:
+ *         description: A list of accounts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/accounts'
+ * 
+ * /getAccounts:
+ *   get:
+ *     tags: [accounts]
+ *     summary: Retrieve a list of active accounts
+ *     responses:
+ *       200:
+ *         description: A list of active accounts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/accounts'
+ * 
+ * /getInactiveAccounts:
+ *   get:
+ *     tags: [accounts]
+ *     summary: Retrieve a list of inactive accounts
+ *     responses:
+ *       200:
+ *         description: A list of inactive accounts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/accounts'
+ * 
+ * /getAccountsWithAllRecords/{accountId}:
+ *   get:
+ *     tags: [accounts]
+ *     summary: Retrieve an account with all its records
+ *     parameters:
+ *       - in: path
+ *         name: accountId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: An account with all its records
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/accounts'
+ * 
+ * /getAccountById/{id}:
+ *   get:
+ *     tags: [accounts]
+ *     summary: Retrieve a specific account
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A specific account
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/accounts'
+ * 
+ * /createAccount:
+ *   post:
+ *     tags: [accounts]
+ *     summary: Create a new account
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/accounts'
+ *     responses:
+ *       200:
+ *         description: The created account
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/accounts'
+ */

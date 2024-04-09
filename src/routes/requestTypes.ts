@@ -34,3 +34,70 @@ router.put("/updateRequestType/:id",
             updateRequestType);
 
 module.exports = router;
+
+/**
+ * @swagger
+ * tags:
+ *   - name: RequestType
+ *     description: Everything about Request Types
+ * 
+ * /createRequestType:
+ *   post:
+ *     tags: [RequestType]
+ *     summary: Create a new request type
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/requestType'
+ *     responses:
+ *       200:
+ *         description: The created request type
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/requestType'
+ * 
+ * /deleteRequestType/{id}:
+ *   delete:
+ *     tags: [RequestType]
+ *     summary: Delete a specific request type
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: The deleted request type
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/requestType'
+ * 
+ * /updateRequestType/{id}:
+ *   put:
+ *     tags: [RequestType]
+ *     summary: Update a specific request type
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/requestType'
+ *     responses:
+ *       200:
+ *         description: The updated request type
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/requestType'
+ */
